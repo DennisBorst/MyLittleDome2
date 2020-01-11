@@ -1,16 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OxygenMeter : MonoBehaviour
 {
     [SerializeField] private Tree[] trees;
     [SerializeField] private int amountOfTreesGrown;
+    [Space]
+    [SerializeField] private int minTrees;
+    [SerializeField] private int maxTrees;
+    [Space]
+    [SerializeField] private int maxGameOverZone;
+    [Space]
+    [SerializeField] private float currentOxygenLevel;
+
+    [Header("Slider")]
+    [SerializeField] private Slider oxygenSlider;
+
+    private float timerSpeed;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         amountOfTreesGrown = 0;
+        timerSpeed = 0;
+
+        oxygenSlider.maxValue = maxGameOverZone;
+        currentOxygenLevel = maxGameOverZone/2;
 
         for (int i = 0; i < trees.Length; i++)
         {
@@ -22,8 +39,9 @@ public class OxygenMeter : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        oxygenSlider.value = currentOxygenLevel;
         amountOfTreesGrown = 0;
 
         for (int i = 0; i < trees.Length; i++)
@@ -33,9 +51,52 @@ public class OxygenMeter : MonoBehaviour
                 amountOfTreesGrown++;
             }
         }
-        
-        if()
+
+        CheckTrees();
 
         Debug.Log(amountOfTreesGrown);
+    }
+
+    private void CheckTrees()
+    {
+        if (amountOfTreesGrown == minTrees - 1 || amountOfTreesGrown == maxTrees + 1)
+        {
+            if (amountOfTreesGrown < minTrees)
+            {
+                currentOxygenLevel = Timer(currentOxygenLevel, 1);
+            }
+            else
+            {
+                currentOxygenLevel = Timer(currentOxygenLevel, -1);
+            }
+        }
+        else if (amountOfTreesGrown == minTrees - 2 || amountOfTreesGrown == maxTrees + 2)
+        {
+            if (amountOfTreesGrown < minTrees)
+            {
+                currentOxygenLevel = Timer(currentOxygenLevel, 2);
+            }
+            else
+            {
+                currentOxygenLevel = Timer(currentOxygenLevel, -2);
+            }
+        }
+        else if (amountOfTreesGrown <= minTrees - 3 || amountOfTreesGrown >= maxTrees + 3)
+        {
+            if (amountOfTreesGrown < minTrees)
+            {
+                currentOxygenLevel = Timer(currentOxygenLevel, 3);
+            }
+            else
+            {
+                currentOxygenLevel = Timer(currentOxygenLevel, -3);
+            }
+        }
+    }
+
+    private float Timer(float timer, int timerSpeed)
+    {
+        timer -= Time.deltaTime * timerSpeed;
+        return timer;
     }
 }
