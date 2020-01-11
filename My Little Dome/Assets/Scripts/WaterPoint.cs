@@ -28,5 +28,7 @@ public class WaterPoint : InteractablePoints
     protected override void InteractableMoveTwo()
     {
         base.InteractableMoveOne();
+
+        Health.Instance.currentWater = Health.Instance.waterCapacity;
     }
 }

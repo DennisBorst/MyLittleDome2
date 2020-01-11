@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject waterCanvas;
+
+    [Header("Player")]
+    [SerializeField] private GameObject[] healthTypeUI;
+    [SerializeField] private Image[] colorHealthType;
 
     [Header("Farm")]
     [SerializeField] private GameObject dropWaterFarm;
@@ -28,6 +33,28 @@ public class UIManager : MonoBehaviour
         DisableCanvas();
     }
 
+
+    #region Player
+    public void Health(int healthType, int phase)
+    {
+        healthTypeUI[healthType - 1].SetActive(true);
+
+        if (phase == 1)
+        {
+            colorHealthType[healthType - 1].color = new Color32(255, 255, 0, 150);
+        }
+        else if(phase == 2)
+        {
+            colorHealthType[healthType - 1].color = new Color32(255, 140, 0, 150);
+        }
+        else if (phase == 3)
+        {
+            colorHealthType[healthType - 1].color = new Color32(255, 0, 0, 150);
+        }
+    }
+    #endregion
+
+    #region WaterPoint
     public void WaterPoint()
     {
         waterCanvas.SetActive(true);
@@ -48,7 +75,9 @@ public class UIManager : MonoBehaviour
             //dropWaterFarm.SetActive(true);
         }
     }
+    #endregion
 
+    #region Farm
     public void PlaceSeed()
     {
         placeSeedFarm.SetActive(true);
@@ -58,7 +87,9 @@ public class UIManager : MonoBehaviour
     {
         harvestFoodFarm.SetActive(true);
     }
+    #endregion
 
+    #region Animals
     public void DropFoodAnimals()
     {
         dropFoodAnimals.SetActive(true);
@@ -100,6 +131,7 @@ public class UIManager : MonoBehaviour
             animalWater[i].SetActive(false);
         }
     }
+    #endregion
 
     public void DisableCanvas()
     {
@@ -116,6 +148,11 @@ public class UIManager : MonoBehaviour
         dropFoodAnimals.SetActive(false);
 
         //forest
+    }
+
+    public void DisablePlayerCanvas(int healthType)
+    {
+        healthTypeUI[healthType - 1].SetActive(false);
     }
 
     #region Singleton

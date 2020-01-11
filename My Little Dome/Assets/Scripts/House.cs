@@ -15,8 +15,8 @@ public class House : MonoBehaviour
     private float isPressingTime = 0.5f;
     private float currentIsPressingTime;
 
-    private bool animationPlaying = false;
     private bool isPressing = false;
+    private bool animationPlaying = false;
 
     private Animator anim;
 
@@ -68,14 +68,17 @@ public class House : MonoBehaviour
     {
         if(collider.gameObject.tag == "Player")
         {
-            if (woodAmount > 0 && woodAmount < woodpile.Length)
+            if (woodAmount > 0 && woodAmount <= woodpile.Length)
             {
                 if (Input.GetKeyDown(KeyCode.Q) && !isPressing)
                 {
                     isPressing = true;
                     UpdateWood(-1, false);
+                    Health.Instance.currentHeat = Health.Instance.heatCapacity;
+
                     anim.SetTrigger("houseActive");
                     animationPlaying = true;
+
                     player.SetActive(false);
                 }
             }
@@ -88,7 +91,7 @@ public class House : MonoBehaviour
 
     public void UpdateWood(int amount, bool active)
     {
-        if(woodAmount < woodpile.Length)
+        if(woodAmount <= woodpile.Length)
         {
             woodAmount += amount;
             if (amount > 0)

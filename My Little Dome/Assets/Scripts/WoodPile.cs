@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class WoodPile : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerStay(Collider collider)
     {
         if(collider.gameObject.tag == "Player")
