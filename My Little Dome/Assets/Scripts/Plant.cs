@@ -45,7 +45,7 @@ public class Plant : MonoBehaviour
             {
                 UIManager.Instance.HarvestPlant();
 
-                if (Input.GetKeyDown(KeyCode.Q))
+                if (Input.GetKeyDown(KeyCode.Q) && !PlayerMovement.Instance.isHoldingFood)
                 {
                     //Get some food 
                     Debug.Log("You harvest a plant");

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Animals : MonoBehaviour
 {
+    public int animalsAlive;
     [SerializeField] private GameObject[] animals;
-    [SerializeField] private int animalsAlive;
 
     [SerializeField] private DropOffPoint dropOffWater;
     [SerializeField] private DropOffPoint dropOfFood;
@@ -106,6 +106,15 @@ public class Animals : MonoBehaviour
         {
             animals[animalsAlive].gameObject.SetActive(false);
         }
+    }
+
+    public void KillAnimal()
+    {
+        animalsAlive--;
+        AnimalsAlive(false);
+        currentTimeToCheck = timeToCheckAnimal;
+
+        UIManager.Instance.AnimalDiedOrBorn();
     }
 
     private float Timer(float timer)

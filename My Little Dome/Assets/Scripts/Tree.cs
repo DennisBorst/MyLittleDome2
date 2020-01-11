@@ -6,7 +6,7 @@ public class Tree : MonoBehaviour
 {
     [SerializeField] private DropOffPoint waterDropOff;
 
-    [SerializeField] private bool fullyGrown;
+    [SerializeField] public bool fullyGrown;
 
     [SerializeField] private GameObject stump;
     [SerializeField] private GameObject fullyGrownTree;
@@ -36,7 +36,7 @@ public class Tree : MonoBehaviour
         {
             if (fullyGrown)
             {
-                if (Input.GetKeyDown(KeyCode.Q))
+                if (Input.GetKeyDown(KeyCode.Q) && !PlayerMovement.Instance.isHoldingWood)
                 {
                     ChopTree();
                 }

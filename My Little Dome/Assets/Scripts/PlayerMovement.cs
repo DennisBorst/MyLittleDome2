@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private Transform cameraMiddlePoint;
+
     public bool isHoldingBucket;
     public bool isHoldingWood;
     public bool isHoldingFood;
@@ -50,35 +52,35 @@ public class PlayerMovement : MonoBehaviour
 
         if(x > 0.5f && z < 0.5f && z > -0.5f) //going to the right
         {
-            playerObject.transform.rotation = Quaternion.Euler(0, 90, 0);
+            playerObject.transform.rotation = Quaternion.Euler(0, cameraMiddlePoint.transform.position.y + 120, 0);
         }
         else if (x < -0.5f && z < 0.5f && z > -0.5f) //going to the left
         {
-            playerObject.transform.rotation = Quaternion.Euler(0, -90, 0);
+            playerObject.transform.rotation = Quaternion.Euler(0, cameraMiddlePoint.transform.position.y - 60, 0);
         }
         else if (x < 0.5f && x > -0.5f && z > 0.5f) //going to the up
         {
-            playerObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            playerObject.transform.rotation = Quaternion.Euler(0, cameraMiddlePoint.transform.position.y + 30, 0);
         }
         else if (x < 0.5f && x > -0.5f && z < -0.5f) //going to the down
         {
-            playerObject.transform.rotation = Quaternion.Euler(0, -180, 0);
+            playerObject.transform.rotation = Quaternion.Euler(0, cameraMiddlePoint.transform.position.y - 150, 0);
         }
         else if (x > 0.5f && z > 0.5f) //going right and up
         {
-            playerObject.transform.rotation = Quaternion.Euler(0, 45, 0);
+            playerObject.transform.rotation = Quaternion.Euler(0, cameraMiddlePoint.transform.position.y + 75, 0);
         }
         else if (x < -0.5f && z < -0.5f) //going left and down
         {
-            playerObject.transform.rotation = Quaternion.Euler(0, -135, 0);
+            playerObject.transform.rotation = Quaternion.Euler(0, cameraMiddlePoint.transform.position.y - 105, 0);
         }
         else if (x < -0.5f && z > 0.5f) //going left and up
         {
-            playerObject.transform.rotation = Quaternion.Euler(0, -45, 0);
+            playerObject.transform.rotation = Quaternion.Euler(0, cameraMiddlePoint.transform.position.y - 15, 0);
         }
         else if (x > 0.5f && z < -0.5f) //going right and down
         {
-            playerObject.transform.rotation = Quaternion.Euler(0, 135, 0);
+            playerObject.transform.rotation = Quaternion.Euler(0, cameraMiddlePoint.transform.position.y + 165, 0);
         }
 
         characterController.Move(move * movementSpeed * Time.deltaTime);
