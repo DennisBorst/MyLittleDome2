@@ -39,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Movement();
+
+
     }
 
     private void Movement()
@@ -123,6 +125,8 @@ public class PlayerMovement : MonoBehaviour
             isHoldingFood = true;
             ToolEquiped();
         }
+
+        UIManager.Instance.UpdateStatsFarm(currentAmountOfPlants);
     }
 
     public void IncreaseWoodNumber()
@@ -137,6 +141,8 @@ public class PlayerMovement : MonoBehaviour
             isHoldingWood = true;
             ToolEquiped();
         }
+
+        UIManager.Instance.UpdateStatsForest(currentAmountOfWood);
     }
 
     #region Singleton

@@ -70,7 +70,7 @@ public class House : MonoBehaviour
         {
             if (woodAmount > 0 && woodAmount <= woodpile.Length)
             {
-                UIManager.Instance.GoInside();
+                UIManager.Instance.GoInside(true);
 
                 if (Input.GetKeyDown(KeyCode.Q) && !isPressing)
                 {
@@ -87,7 +87,7 @@ public class House : MonoBehaviour
             }
             else
             {
-                //UI implemtatie (dat je geen hout hebt)
+                UIManager.Instance.GoInside(false);
             }
         }
     }

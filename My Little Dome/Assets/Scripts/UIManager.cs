@@ -18,17 +18,24 @@ public class UIManager : MonoBehaviour
 
     [Header("House")]
     [SerializeField] private GameObject placeWoodHouse;
+    [SerializeField] private GameObject noPlaceWoodHouse;
     [SerializeField] private GameObject goInsideHouse;
+    [SerializeField] private GameObject noGoInsideHouse;
 
     [Header("Farm")]
     [SerializeField] private GameObject dropWaterFarm;
     [SerializeField] private GameObject placeSeedFarm;
     [SerializeField] private GameObject harvestFoodFarm;
+    [SerializeField] private GameObject maisStatsFarm;
+    [SerializeField] private TextMeshProUGUI maisStats;
 
     [Header("Animals")]
     [SerializeField] private GameObject dropWaterAnimals;
     [SerializeField] private GameObject dropFoodAnimals;
     [SerializeField] private GameObject eatAnimals;
+
+    [SerializeField] private Image[] colorWaterAnimal;
+    [SerializeField] private Image[] colorFoodAnimal;
 
     [SerializeField] private GameObject[] animalFood;
     [SerializeField] private GameObject[] animalWater;
@@ -37,11 +44,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject dropWaterForest;
     [SerializeField] private GameObject chopTreeForest;
 
+    [SerializeField] private GameObject woodStatsFarm;
+    [SerializeField] private TextMeshProUGUI woodStats;
+
     private void Awake()
     {
         instance = this;
 
         DisableCanvas();
+        DisableStats();
     }
 
     #region DayTime
@@ -72,14 +83,28 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region House
-    public void PlaceWood()
+    public void PlaceWood(bool active)
     {
-        placeWoodHouse.SetActive(true);
+        if (active)
+        {
+            placeWoodHouse.SetActive(true);
+        }
+        else
+        {
+            noPlaceWoodHouse.SetActive(true);
+        }
     }
 
-    public void GoInside()
+    public void GoInside(bool active)
     {
-        goInsideHouse.SetActive(true);
+        if (active)
+        {
+            goInsideHouse.SetActive(true);
+        }
+        else
+        {
+            noGoInsideHouse.SetActive(true);
+        }
     }
     #endregion
 
@@ -115,6 +140,16 @@ public class UIManager : MonoBehaviour
     public void HarvestPlant()
     {
         harvestFoodFarm.SetActive(true);
+    }
+
+    public void StatsDisplayFarm()
+    {
+        maisStatsFarm.SetActive(true);
+    }
+
+    public void UpdateStatsFarm(int maisCount)
+    {
+        maisStats.text = maisCount + " / 5";
     }
     #endregion
 
@@ -165,12 +200,43 @@ public class UIManager : MonoBehaviour
     {
         eatAnimals.SetActive(true);
     }
+
+    public void HealthAnimal(int animalAlive, int phase)
+    {
+        if (phase == 1)
+        {
+            colorWaterAnimal[animalAlive - 1].color = new Color32(255, 255, 0, 150);
+            colorFoodAnimal[animalAlive - 1].color = new Color32(255, 255, 0, 150);
+        }
+        else if (phase == 2)
+        {
+            colorWaterAnimal[animalAlive - 1].color = new Color32(255, 140, 0, 150);
+            colorFoodAnimal[animalAlive - 1].color = new Color32(255, 140, 0, 150);
+
+        }
+        else if (phase == 3)
+        {
+            colorWaterAnimal[animalAlive - 1].color = new Color32(255, 0, 0, 150);
+            colorFoodAnimal[animalAlive - 1].color = new Color32(255, 0, 0, 150);
+        }
+    }
     #endregion
 
     #region Forest
     public void ChopTree()
     {
         chopTreeForest.SetActive(true);
+    }
+
+    public void DisplayStatsWood()
+    {
+        woodStatsFarm.SetActive(true);
+    }
+
+
+    public void UpdateStatsForest(int woodCount)
+    {
+        woodStats.text = woodCount + " / 5";
     }
     #endregion
 
@@ -182,6 +248,9 @@ public class UIManager : MonoBehaviour
         //House
         placeWoodHouse.SetActive(false);
         goInsideHouse.SetActive(false);
+
+        noPlaceWoodHouse.SetActive(false);
+        noGoInsideHouse.SetActive(false);
 
         //farm
         dropWaterFarm.SetActive(false);
@@ -202,6 +271,22 @@ public class UIManager : MonoBehaviour
     {
         healthTypeUI[healthType - 1].SetActive(false);
     }
+
+    public void DisableStats()
+    {
+        maisStatsFarm.SetActive(false);
+        woodStatsFarm.SetActive(false);
+    }
+
+    /*
+    public void DisableAnimalCanvas(int animal, bool water)
+    {
+        if (water)
+        {
+            color[healthType - 1].SetActive(false);
+        }
+    }
+    */
 
     #region Singleton
     private static UIManager instance;

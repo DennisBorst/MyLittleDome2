@@ -10,6 +10,14 @@ public class WaterPoint : InteractablePoints
         UIManager.Instance.WaterPoint();
     }
 
+    private void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.tag == "Player")
+        {
+            UIManager.Instance.DisableCanvas();
+        }
+    }
+
     protected override void InteractableInputs()
     {
         base.InteractableInputs();
