@@ -16,12 +16,18 @@ public class Animals : MonoBehaviour
     [SerializeField] private float happyTimeAnimal;
     [SerializeField] private float currentHappyAnimalTime;
 
+    private float currentWater;
+    private float currentFood;
+
     private float speed = 1;
     // Start is called before the first frame update
     void Start()
     {
         currentTimeToCheck = timeToCheckAnimal;
         currentHappyAnimalTime = happyTimeAnimal;
+
+        currentWater = currentTimeToCheck;
+        currentFood = currentTimeToCheck;
 
         for (int i = 0; i < animals.Length; i++)
         {
@@ -37,6 +43,11 @@ public class Animals : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Starving();
+    }
+
+    private void Starving()
+    {
         if (dropOfFood.consumeAvailable && dropOffWater.consumeAvailable)
         {
             currentHappyAnimalTime = Timer(currentHappyAnimalTime);
@@ -45,7 +56,7 @@ public class Animals : MonoBehaviour
 
             if (currentHappyAnimalTime <= 0)
             {
-                if(animals.Length > animalsAlive)
+                if (animals.Length > animalsAlive)
                 {
                     animalsAlive++;
                     AnimalsAlive(true);
@@ -55,7 +66,6 @@ public class Animals : MonoBehaviour
                 }
             }
         }
-        
         else
         {
             if (dropOfFood.consumeAvailable || dropOffWater.consumeAvailable)
@@ -71,16 +81,30 @@ public class Animals : MonoBehaviour
             {
                 UIManager.Instance.AnimalFood(animalsAlive, true);
                 UIManager.Instance.AnimalWater(animalsAlive, true);
+
+                Food();
+                Water();
             }
             else if (!dropOfFood.consumeAvailable)
             {
                 UIManager.Instance.AnimalFood(animalsAlive, true);
                 UIManager.Instance.AnimalWater(animalsAlive, false);
+
+                Food();
+                //UIManager.Instance.DisableAnimalCanvas(1);
             }
             else if (!dropOffWater.consumeAvailable)
             {
                 UIManager.Instance.AnimalFood(animalsAlive, false);
                 UIManager.Instance.AnimalWater(animalsAlive, true);
+
+                Water();
+                //UIManager.Instance.DisableAnimalCanvas(2);
+            }
+            else
+            {
+                //UIManager.Instance.DisableAnimalCanvas(1);
+                //UIManager.Instance.DisableAnimalCanvas(2);
             }
 
             currentTimeToCheck = Timer(currentTimeToCheck);
@@ -115,6 +139,42 @@ public class Animals : MonoBehaviour
         currentTimeToCheck = timeToCheckAnimal;
 
         UIManager.Instance.AnimalDiedOrBorn();
+    }
+
+    private void Water()
+    {
+        currentFood = Timer(currentFood);
+
+        if (currentTimeToCheck <= (timeToCheckAnimal / 3) * 1)
+        {
+            UIManager.Instance.HealthAnimal(animalsAlive, 3);
+        }
+        else if (currentTimeToCheck <= (timeToCheckAnimal / 3) * 2)
+        {
+            UIManager.Instance.HealthAnimal(animalsAlive, 2);
+        }
+        else
+        {
+            UIManager.Instance.HealthAnimal(animalsAlive, 1);
+        }
+    }
+
+    private void Food()
+    {
+        currentFood = Timer(currentFood);
+
+        if (currentTimeToCheck <= (timeToCheckAnimal / 3) * 1)
+        {
+            UIManager.Instance.HealthAnimal(animalsAlive, 3);
+        }
+        else if (currentTimeToCheck <= (timeToCheckAnimal / 3) * 2)
+        {
+            UIManager.Instance.HealthAnimal(animalsAlive, 2);
+        }
+        else
+        {
+            UIManager.Instance.HealthAnimal(animalsAlive, 1);
+        }
     }
 
     private float Timer(float timer)

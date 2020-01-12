@@ -10,7 +10,7 @@ public class WoodPile : MonoBehaviour
         {
             if (PlayerMovement.Instance.isHoldingWood)
             {
-                UIManager.Instance.PlaceWood();
+                UIManager.Instance.PlaceWood(true);
 
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
@@ -18,6 +18,10 @@ public class WoodPile : MonoBehaviour
                     PlayerMovement.Instance.EmptyHanded();
                     UIManager.Instance.DisableCanvas();
                 }
+            }
+            else
+            {
+                UIManager.Instance.PlaceWood(false);
             }
         }
     }
