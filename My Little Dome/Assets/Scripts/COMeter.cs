@@ -31,8 +31,13 @@ public class COMeter : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        co2Slider.value = currentCO2Level;
+        if (currentCO2Level <= 0 || currentCO2Level >= maxGameOverZone)
+        {
+            GameManager.Instance.GameOverAir(2);
+            return;
+        }
 
+        co2Slider.value = currentCO2Level;
         CheckSheeps();
     }
 

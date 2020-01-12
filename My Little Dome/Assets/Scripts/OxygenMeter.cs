@@ -41,7 +41,18 @@ public class OxygenMeter : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if(currentOxygenLevel <= 0 || currentOxygenLevel >= maxGameOverZone)
+        {
+            GameManager.Instance.GameOverAir(1);
+            return;
+        }
+
         oxygenSlider.value = currentOxygenLevel;
+        CheckTrees();
+    }
+
+    private void CheckTrees()
+    {
         amountOfTreesGrown = 0;
 
         for (int i = 0; i < trees.Length; i++)
@@ -52,13 +63,6 @@ public class OxygenMeter : MonoBehaviour
             }
         }
 
-        CheckTrees();
-
-        Debug.Log(amountOfTreesGrown);
-    }
-
-    private void CheckTrees()
-    {
         if (amountOfTreesGrown == minTrees - 1 || amountOfTreesGrown == maxTrees + 1)
         {
             if (amountOfTreesGrown < minTrees)

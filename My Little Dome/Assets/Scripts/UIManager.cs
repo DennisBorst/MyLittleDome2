@@ -2,14 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Day Cycle")]
+    [SerializeField] private TextMeshProUGUI dayTime;
+
+    [Header("WaterPoint")]
     [SerializeField] private GameObject waterCanvas;
 
     [Header("Player")]
     [SerializeField] private GameObject[] healthTypeUI;
     [SerializeField] private Image[] colorHealthType;
+
+    [Header("House")]
+    [SerializeField] private GameObject placeWoodHouse;
+    [SerializeField] private GameObject goInsideHouse;
 
     [Header("Farm")]
     [SerializeField] private GameObject dropWaterFarm;
@@ -19,12 +28,14 @@ public class UIManager : MonoBehaviour
     [Header("Animals")]
     [SerializeField] private GameObject dropWaterAnimals;
     [SerializeField] private GameObject dropFoodAnimals;
+    [SerializeField] private GameObject eatAnimals;
 
     [SerializeField] private GameObject[] animalFood;
     [SerializeField] private GameObject[] animalWater;
 
     [Header("Forest")]
     [SerializeField] private GameObject dropWaterForest;
+    [SerializeField] private GameObject chopTreeForest;
 
     private void Awake()
     {
@@ -33,6 +44,12 @@ public class UIManager : MonoBehaviour
         DisableCanvas();
     }
 
+    #region DayTime
+    public void IncreaseDayCount(int dayCount)
+    {
+        dayTime.text = "Day: " + dayCount;
+    }
+    #endregion
 
     #region Player
     public void Health(int healthType, int phase)
@@ -54,6 +71,18 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
+    #region House
+    public void PlaceWood()
+    {
+        placeWoodHouse.SetActive(true);
+    }
+
+    public void GoInside()
+    {
+        goInsideHouse.SetActive(true);
+    }
+    #endregion
+
     #region WaterPoint
     public void WaterPoint()
     {
@@ -72,7 +101,7 @@ public class UIManager : MonoBehaviour
         }
         else if (waterPlace == 3)
         {
-            //dropWaterFarm.SetActive(true);
+            dropWaterForest.SetActive(true);
         }
     }
     #endregion
@@ -131,12 +160,28 @@ public class UIManager : MonoBehaviour
             animalWater[i].SetActive(false);
         }
     }
+
+    public void EatAnimal()
+    {
+        eatAnimals.SetActive(true);
+    }
+    #endregion
+
+    #region Forest
+    public void ChopTree()
+    {
+        chopTreeForest.SetActive(true);
+    }
     #endregion
 
     public void DisableCanvas()
     {
         //waterplace
         waterCanvas.SetActive(false);
+
+        //House
+        placeWoodHouse.SetActive(false);
+        goInsideHouse.SetActive(false);
 
         //farm
         dropWaterFarm.SetActive(false);
@@ -146,8 +191,11 @@ public class UIManager : MonoBehaviour
         //animals
         dropWaterAnimals.SetActive(false);
         dropFoodAnimals.SetActive(false);
+        eatAnimals.SetActive(false);
 
         //forest
+        dropWaterForest.SetActive(false);
+        chopTreeForest.SetActive(false);
     }
 
     public void DisablePlayerCanvas(int healthType)

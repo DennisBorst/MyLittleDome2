@@ -10,12 +10,23 @@ public class WoodPile : MonoBehaviour
         {
             if (PlayerMovement.Instance.isHoldingWood)
             {
+                UIManager.Instance.PlaceWood();
+
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
                     House.Instance.UpdateWood(1, true);
                     PlayerMovement.Instance.EmptyHanded();
+                    UIManager.Instance.DisableCanvas();
                 }
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.tag == "Player")
+        {
+            UIManager.Instance.DisableCanvas();
         }
     }
 }

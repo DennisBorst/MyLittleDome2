@@ -32,14 +32,31 @@ public class ButcherPlace : MonoBehaviour
 
     private void OnTriggerStay(Collider collider)
     {
-        if (animal.animalsAlive > 0)
+        if(collider.gameObject.tag == "Player")
         {
-            if (Input.GetKeyDown(KeyCode.Q) && !isPressing)
+            UIManager.Instance.EatAnimal();
+
+            if (animal.animalsAlive > 0)
             {
-                isPressing = true;
-                animal.KillAnimal();
-                Health.Instance.currentFood = Health.Instance.foodCapacity;
+                if (Input.GetKeyDown(KeyCode.Q) && !isPressing)
+                {
+                    isPressing = true;
+                    animal.KillAnimal();
+                    Health.Instance.currentFood = Health.Instance.foodCapacity;
+                }
             }
+            else
+            {
+                UIManager.Instance.DisableCanvas();
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.tag == "Player")
+        {
+            UIManager.Instance.DisableCanvas();
         }
     }
 
