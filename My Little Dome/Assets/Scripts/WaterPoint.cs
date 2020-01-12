@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class WaterPoint : InteractablePoints
 {
-    [SerializeField] private GameObject bucket;
-
     protected override void OnTriggerStay(Collider collider)
     {
         base.OnTriggerStay(collider);

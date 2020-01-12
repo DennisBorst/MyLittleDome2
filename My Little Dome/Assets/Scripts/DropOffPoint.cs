@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DropOffPoint : MonoBehaviour
 {
+    [SerializeField] private bool isFilled = true;
+
     [SerializeField] private bool waterTank = true;
 
     [SerializeField] private bool farm;
@@ -23,15 +25,22 @@ public class DropOffPoint : MonoBehaviour
     {
         if (waterTank)
         {
-            waterLevel.SetActive(true);
+            waterLevel.SetActive(isFilled);
         }
         else
         {
-            foodLevel.SetActive(true);
+            foodLevel.SetActive(isFilled);
         }
 
-        consumeAvailable = true;
-        currentTime = durationTimer;
+        consumeAvailable = isFilled;
+        if (isFilled)
+        {
+            currentTime = durationTimer;
+        }
+        else
+        {
+            currentTime = 0;
+        }
     }
 
     // Update is called once per frame

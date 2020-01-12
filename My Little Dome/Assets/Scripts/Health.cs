@@ -27,15 +27,26 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentWater <= 0)
+        {
+            //Game Over
+            GameManager.Instance.GameOverHealth(1);
+            return;
+        }
+        else if(currentFood <= 0)
+        {
+            GameManager.Instance.GameOverHealth(2);
+            return;
+        }
+        else if(currentHeat <= 0)
+        {
+            GameManager.Instance.GameOverHealth(3);
+            return;
+        }
+
         Water();
         Food();
         Heat();
-
-        if (currentWater <= 0 || currentFood <= 0 || currentHeat <= 0)
-        {
-            //Game Over
-            Debug.Log("Game Over");
-        }
     }
 
     private void Water()

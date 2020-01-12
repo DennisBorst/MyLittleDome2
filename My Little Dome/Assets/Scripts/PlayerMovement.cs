@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     public bool isHoldingBucket;
     public bool isHoldingWood;
     public bool isHoldingFood;
-    public bool isHoldingKnife;
 
     [SerializeField] private float movementSpeed = 5f;
     [SerializeField] private Transform playerObject;
@@ -20,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject bucket;
     [SerializeField] private GameObject wood;
     [SerializeField] private GameObject food;
-    [SerializeField] private GameObject knife;
 
     [Header("Farm Related")]
     [SerializeField] private int amountOfPlantsToFarm;
@@ -91,12 +89,10 @@ public class PlayerMovement : MonoBehaviour
         bucket.SetActive(false);
         wood.SetActive(false);
         food.SetActive(false);
-        knife.SetActive(false);
 
         isHoldingBucket = false;
         isHoldingWood = false;
         isHoldingFood = false;
-        isHoldingKnife = false;
     }
 
     public void ToolEquiped()
@@ -112,10 +108,6 @@ public class PlayerMovement : MonoBehaviour
         else if (isHoldingFood)
         {
             food.SetActive(true);
-        }
-        else if (isHoldingKnife)
-        {
-            knife.SetActive(true);
         }
     }
 

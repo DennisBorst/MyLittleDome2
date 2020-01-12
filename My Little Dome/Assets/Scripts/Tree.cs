@@ -36,11 +36,22 @@ public class Tree : MonoBehaviour
         {
             if (fullyGrown)
             {
+                UIManager.Instance.ChopTree();
+
                 if (Input.GetKeyDown(KeyCode.Q) && !PlayerMovement.Instance.isHoldingWood)
                 {
                     ChopTree();
+                    UIManager.Instance.DisableCanvas();
                 }
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.tag == "Player")
+        {
+            UIManager.Instance.DisableCanvas();
         }
     }
 
