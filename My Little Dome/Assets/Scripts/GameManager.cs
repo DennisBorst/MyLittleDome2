@@ -19,10 +19,8 @@ public class GameManager : MonoBehaviour
     private float currentDayTime;
     private int dayCount = 1;
 
-    void Awake()
+    private void Awake()
     {
-        Time.timeScale = 1f;
-
         currentSurviveTime = mustSurviveTime;
         currentDayTime = mustSurviveTime / 7;
 
@@ -32,7 +30,12 @@ public class GameManager : MonoBehaviour
         endScreen.SetActive(false);
     }
 
-    void Update()
+    private void Start()
+    {
+        Time.timeScale = 1f;
+    }
+
+    private void Update()
     {
 
         if (currentSurviveTime <= 0)
@@ -55,6 +58,11 @@ public class GameManager : MonoBehaviour
             dayCount++;
             UIManager.Instance.IncreaseDayCount(dayCount);
         }
+    }
+
+    public void LoadScene(int sceneLevel)
+    {
+        SceneManager.LoadScene(sceneLevel);
     }
 
     public void Replay()
@@ -83,6 +91,19 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         endScreen.SetActive(true);
         Debug.Log("Game Over : Health");
+
+        if(healthType == 1)
+        {
+            endText.text = "You have died of thirst, which means you haven't drank enough water.";
+        }
+        else if (healthType == 2)
+        {
+            endText.text = "You have died of hunger, which means you haven't consumed enough food.";
+        }
+        else if (healthType == 3)
+        {
+            endText.text = "You froze to death, which means you haven't kept yourself warm enough.";
+        }
     }
 
     public void GameOverAir(int airType)
@@ -91,6 +112,15 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         endScreen.SetActive(true);
         Debug.Log("Game Over : Air");
+
+        if (airType == 1)
+        {
+            endText.text = "The ecosystem is out of balance, which means the oxygen level was either too high or too low.";
+        }
+        else if (airType == 2)
+        {
+            endText.text = "The ecosystem is out of balance, which means the CO2 level was either too high or too low.";
+        }
     }
 
     private float Timer(float timer)

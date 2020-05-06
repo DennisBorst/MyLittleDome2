@@ -69,15 +69,15 @@ public class UIManager : MonoBehaviour
 
         if (phase == 1)
         {
-            colorHealthType[healthType - 1].color = new Color32(255, 255, 0, 150);
+            colorHealthType[healthType - 1].color = new Color32(255, 255, 0, 255);
         }
         else if(phase == 2)
         {
-            colorHealthType[healthType - 1].color = new Color32(255, 140, 0, 150);
+            colorHealthType[healthType - 1].color = new Color32(255, 140, 0, 255);
         }
         else if (phase == 3)
         {
-            colorHealthType[healthType - 1].color = new Color32(255, 0, 0, 150);
+            colorHealthType[healthType - 1].color = new Color32(255, 0, 0, 255);
         }
     }
     #endregion
@@ -205,19 +205,19 @@ public class UIManager : MonoBehaviour
     {
         if (phase == 1)
         {
-            colorWaterAnimal[animalAlive - 1].color = new Color32(255, 255, 0, 150);
-            colorFoodAnimal[animalAlive - 1].color = new Color32(255, 255, 0, 150);
+            colorWaterAnimal[animalAlive - 1].color = new Color32(255, 255, 0, 255);
+            colorFoodAnimal[animalAlive - 1].color = new Color32(255, 255, 0, 200);
         }
         else if (phase == 2)
         {
-            colorWaterAnimal[animalAlive - 1].color = new Color32(255, 140, 0, 150);
-            colorFoodAnimal[animalAlive - 1].color = new Color32(255, 140, 0, 150);
+            colorWaterAnimal[animalAlive - 1].color = new Color32(255, 140, 0, 255);
+            colorFoodAnimal[animalAlive - 1].color = new Color32(255, 140, 0, 255);
 
         }
         else if (phase == 3)
         {
-            colorWaterAnimal[animalAlive - 1].color = new Color32(255, 0, 0, 150);
-            colorFoodAnimal[animalAlive - 1].color = new Color32(255, 0, 0, 150);
+            colorWaterAnimal[animalAlive - 1].color = new Color32(255, 0, 0, 255);
+            colorFoodAnimal[animalAlive - 1].color = new Color32(255, 0, 0, 255);
         }
     }
     #endregion

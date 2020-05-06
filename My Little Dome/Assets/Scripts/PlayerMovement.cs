@@ -28,25 +28,37 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int amountOfTreeToChop;
     [SerializeField] private int currentAmountOfWood;
 
+    private bool equipedTool = false;
+    private Animator anim;
+
     // Start is called before the first frame update
     void Awake()
     {
         instance = this;
         characterController = GetComponent<CharacterController>();
+
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Movement();
-
-
     }
 
     private void Movement()
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+
+        if (x > 0.3f || x < -0.3f || z > 0.3f || z < -0.3f)
+        {
+            anim.SetBool("isWalking", true);
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
+        }
 
         Vector3 move = transform.right * x + transform.forward * z;
 
@@ -88,6 +100,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void EmptyHanded()
     {
+        equipedTool = false;
+
         bucket.SetActive(false);
         wood.SetActive(false);
         food.SetActive(false);
@@ -99,6 +113,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void ToolEquiped()
     {
+        equipedTool = true;
+
         if (isHoldingBucket)
         {
             bucket.SetActive(true);
